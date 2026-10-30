@@ -9,9 +9,18 @@
     html, body { width: 100%; background: #2b2e33; }
     #pages { width: 100vw; display: flex; flex-direction: column; align-items: center; gap: 16px; padding: 16px 0; }
     canvas { width: min(88vw, 900px); height: auto; display: block; background: #fff; box-shadow: 0 2px 12px rgba(0,0,0,.4); }
+    .dl {
+      position: fixed; bottom: 20px; right: 20px; z-index: 10;
+      background: rgba(0,0,0,.72); color: #fff;
+      padding: 10px 16px; border-radius: 999px; text-decoration: none;
+      font-family: system-ui, sans-serif; font-size: 14px; font-weight: 600;
+      border: 1px solid rgba(255,255,255,.22);
+    }
+    .dl:hover { background: rgba(0,0,0,.9); }
   </style>
 </head>
 <body>
+  <a class="dl" href="./portfolio.pdf" download>⤓ Download</a>
   <div id="pages"></div>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
   <script>
