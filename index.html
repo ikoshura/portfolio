@@ -4,30 +4,257 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Abrar Zharifan Syah — Portfolio</title>
-  <meta name="description" content="Portfolio PDF of Abrar Zharifan Syah" />
+  <meta name="description" content="Portfolio of Abrar Zharifan Syah — Telkom University. View online or download the PDF." />
   <style>
-    html, body { margin: 0; height: 100%; background: #1a1a1a; }
-    .viewer { position: fixed; inset: 0; }
-    iframe, embed, object { width: 100%; height: 100%; border: 0; display: block; background: #1a1a1a; }
-    .fallback {
-      position: fixed; left: 50%; top: 50%; transform: translate(-50%, -50%);
-      color: #fff; font-family: system-ui, -apple-system, sans-serif;
-      text-align: center; padding: 24px; max-width: 90vw;
+    :root {
+      --bg: #0b0e17;
+      --bg2: #11162a;
+      --card: rgba(255,255,255,.06);
+      --border: rgba(255,255,255,.12);
+      --text: #eef2ff;
+      --muted: #a5b0cc;
+      --accent: #6e8bff;
+      --accent2: #9d7bff;
+      --radius: 18px;
     }
-    .fallback a {
-      color: #fff; background: #2563eb; padding: 10px 18px;
-      border-radius: 8px; text-decoration: none; display: inline-block; margin-top: 12px;
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0; color: var(--text);
+      font-family: ui-sans-system, -apple-system, "Segoe UI", Inter, Roboto, sans-serif;
+      background:
+        radial-gradient(900px 500px at 15% -5%, rgba(110,139,255,.28), transparent 60%),
+        radial-gradient(800px 500px at 90% 0%, rgba(157,123,255,.22), transparent 60%),
+        linear-gradient(180deg, var(--bg), var(--bg2));
+      min-height: 100vh;
+    }
+    a { color: inherit; }
+    .wrap { max-width: 1080px; margin: 0 auto; padding: 0 20px; }
+
+    header {
+      position: sticky; top: 0; z-index: 50;
+      backdrop-filter: blur(14px);
+      background: rgba(11,14,23,.72);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav { display: flex; align-items: center; justify-content: space-between; height: 64px; }
+    .brand { display: flex; align-items: center; gap: 12px; font-weight: 700; letter-spacing: .2px; }
+    .avatar {
+      width: 36px; height: 36px; border-radius: 12px; display: grid; place-items: center;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      font-weight: 800; color: white;
+    }
+    .brand small { display: block; font-weight: 500; color: var(--muted); font-size: 12px; }
+    .btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      border: 1px solid var(--border); background: var(--card);
+      padding: 10px 16px; border-radius: 999px; text-decoration: none;
+      font-weight: 600; font-size: 14px; cursor: pointer; color: var(--text);
+      transition: transform .15s, background .15s;
+      white-space: nowrap;
+    }
+    .btn:hover { transform: translateY(-1px); background: rgba(255,255,255,.1); }
+    .btn.primary { background: linear-gradient(135deg, var(--accent), var(--accent2)); border: 0; color: white; }
+    .btn.ghost { background: transparent; }
+
+    .hero { padding: 56px 0 24px; text-align: left; }
+    .badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-size: 13px; color: #dbe4ff; background: rgba(110,139,255,.14);
+      border: 1px solid rgba(110,139,255,.35); padding: 7px 12px; border-radius: 999px;
+    }
+    .dot { width: 8px; height: 8px; border-radius: 50%; background: #5df08a; box-shadow: 0 0 10px #5df08a; }
+    h1 { font-size: clamp(34px, 6vw, 58px); line-height: 1.02; margin: 18px 0 12px; letter-spacing: -1px; }
+    h1 span { background: linear-gradient(90deg, #aabfff, #d3bfff); -webkit-background-clip: text; background-clip: text; color: transparent; }
+    .sub { color: var(--muted); font-size: clamp(15px, 2.5vw, 18px); max-width: 680px; line-height: 1.6; margin: 0 0 20px; }
+    .meta { display: flex; flex-wrap: wrap; gap: 10px; margin: 0 0 22px; }
+    .pill {
+      font-size: 13px; color: var(--muted); border: 1px solid var(--border);
+      background: rgba(255,255,255,.04); padding: 8px 12px; border-radius: 999px; text-decoration: none;
+    }
+    .pill:hover { color: var(--text); border-color: rgba(255,255,255,.25); }
+    .cta { display: flex; flex-wrap: wrap; gap: 12px; }
+
+    .viewer-shell {
+      margin: 26px 0 40px; border: 1px solid var(--border); border-radius: var(--radius);
+      background: rgba(0,0,0,.28); overflow: hidden; box-shadow: 0 24px 80px rgba(0,0,0,.45);
+    }
+    .toolbar {
+      position: sticky; top: 64px; z-index: 20;
+      display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap;
+      padding: 12px 14px; background: rgba(17,22,42,.92); border-bottom: 1px solid var(--border);
+      backdrop-filter: blur(10px);
+    }
+    .tools { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+    .tool {
+      border: 1px solid var(--border); background: rgba(255,255,255,.06); color: var(--text);
+      border-radius: 10px; padding: 8px 12px; font-size: 14px; font-weight: 600; cursor: pointer;
+    }
+    .tool:hover { background: rgba(255,255,255,.12); }
+    .page-ind { font-size: 13px; color: var(--muted); font-variant-numeric: tabular-nums; }
+    #pages { padding: 22px 14px 28px; display: flex; flex-direction: column; gap: 20px; align-items: center; background: radial-gradient(600px 300px at 50% 0%, rgba(110,139,255,.12), transparent); }
+    .page-card {
+      width: 100%; max-width: 860px; background: #fff; border-radius: 12px; overflow: hidden;
+      box-shadow: 0 12px 40px rgba(0,0,0,.5); position: relative;
+    }
+    .page-card canvas { width: 100%; height: auto; display: block; }
+    .page-tag {
+      position: absolute; left: 12px; bottom: 12px; font-size: 12px; font-weight: 700;
+      background: rgba(0,0,0,.65); color: #fff; padding: 5px 10px; border-radius: 999px;
+    }
+    .status { color: var(--muted); text-align: center; padding: 30px 10px; font-size: 14px; }
+    .fallback-box { padding: 30px; text-align: center; color: var(--muted); }
+    footer { padding: 10px 0 44px; color: var(--muted); font-size: 13px; }
+    footer .wrap { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; align-items: center; }
+    @media (max-width: 640px) {
+      .toolbar { top: 64px; }
+      #pages { padding: 14px 8px 20px; }
+      .nav .hide-m { display: none; }
     }
   </style>
 </head>
 <body>
-  <div class="viewer">
-    <iframe src="./portfolio.pdf" title="Abrar Zharifan Syah — Portfolio PDF" allow="fullscreen">
-      <div class="fallback">
-        <p>Your browser can't preview this PDF.</p>
-        <a href="./portfolio.pdf" download>Download Portfolio PDF</a>
+  <header>
+    <div class="wrap nav">
+      <div class="brand">
+        <div class="avatar">A</div>
+        <div>Abrar Zharifan Syah<small>Portfolio • Telkom University</small></div>
       </div>
-    </iframe>
-  </div>
+      <div style="display:flex;gap:10px">
+        <a class="btn hide-m ghost" href="#viewer">View work ↓</a>
+        <a class="btn primary" href="./portfolio.pdf" download>⤓ Download PDF</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section class="hero">
+      <div class="badge"><span class="dot"></span> Portfolio 2025 • 18 pages • PDF</div>
+      <h1>Design work,<br /><span>presented as it was made.</span></h1>
+      <p class="sub">Full portfolio by Abrar Zharifan Syah. Scroll to read it like a site — same original PDF, rendered page-by-page for fast viewing on any device.</p>
+      <div class="meta">
+        <span class="pill">✉️ abrar.zharif@gmail.com</span>
+        <span class="pill">📞 +62 852 1563 5500</span>
+        <a class="pill" href="https://linkedin.com/in/abrarzha" target="_blank" rel="noopener">in linkedin.com/in/abrarzha ↗</a>
+      </div>
+      <div class="cta">
+        <a class="btn primary" href="#viewer">Read portfolio ↓</a>
+        <a class="btn" href="./portfolio.pdf" target="_blank" rel="noopener">Open native viewer ↗</a>
+      </div>
+    </section>
+
+    <section id="viewer" class="viewer-shell">
+      <div class="toolbar">
+        <div class="tools">
+          <button class="tool" id="zoomOut" aria-label="Zoom out">−</button>
+          <span class="page-ind" id="zoomLabel">100%</span>
+          <button class="tool" id="zoomIn" aria-label="Zoom in">+</button>
+          <button class="tool" id="fitBtn">Fit width</button>
+        </div>
+        <div class="page-ind" id="pageLabel">Loading…</div>
+        <div class="tools">
+          <a class="btn" style="padding:8px 12px" href="./portfolio.pdf" download>⤓ PDF</a>
+        </div>
+      </div>
+      <div id="pages"><div class="status" id="status">Loading portfolio…</div></div>
+      <div class="fallback-box" id="fallback" hidden>
+        <p>Couldn't render the preview on this browser.</p>
+        <p><a class="btn primary" href="./portfolio.pdf" target="_blank" rel="noopener">Open PDF directly ↗</a></p>
+        <object data="./portfolio.pdf" type="application/pdf" width="100%" height="600px" style="border:0;border-radius:12px;background:#fff;margin-top:16px">
+          <p>Your browser can't preview PDFs. <a href="./portfolio.pdf" download>Download it here</a>.</p>
+        </object>
+      </div>
+    </section>
+
+    <footer>
+      <div class="wrap">
+        <span>© 2025 Abrar Zharifan Syah • Portfolio PDF viewer</span>
+        <a href="#" style="text-decoration:none">Back to top ↑</a>
+      </div>
+    </footer>
+  </main>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+  <script>
+    const url = './portfolio.pdf';
+    const pagesEl = document.getElementById('pages');
+    const statusEl = document.getElementById('status');
+    const pageLabel = document.getElementById('pageLabel');
+    const zoomLabel = document.getElementById('zoomLabel');
+    let pdfDoc = null, baseScale = 1.4, zoom = 1;
+
+    function setLabels(loaded, total) {
+      pageLabel.textContent = total ? `${loaded} / ${total} pages` : 'Loading…';
+      zoomLabel.textContent = Math.round(zoom * 100) + '%';
+    }
+
+    async function renderAll() {
+      pagesEl.innerHTML = '';
+      const status = document.createElement('div');
+      status.className = 'status';
+      status.textContent = 'Rendering…';
+      pagesEl.appendChild(status);
+
+      const total = pdfDoc.numPages;
+      let done = 0;
+      setLabels(0, total);
+      pagesEl.innerHTML = '';
+
+      for (let n = 1; n <= total; n++) {
+        const page = await pdfDoc.getPage(n);
+        const viewport = page.getViewport({ scale: baseScale * zoom });
+        const card = document.createElement('div');
+        card.className = 'page-card';
+        const canvas = document.createElement('canvas');
+        const ctx = canvas.getContext('2d');
+        const dpr = Math.min(window.devicePixelRatio || 1, 2);
+        canvas.width = Math.floor(viewport.width * dpr);
+        canvas.height = Math.floor(viewport.height * dpr);
+        canvas.style.aspectRatio = viewport.width + ' / ' + viewport.height;
+        card.appendChild(canvas);
+        const tag = document.createElement('div');
+        tag.className = 'page-tag';
+        tag.textContent = n + ' / ' + total;
+        card.appendChild(tag);
+        pagesEl.appendChild(card);
+
+        await page.render({
+          canvasContext: ctx,
+          viewport: viewport,
+          transform: dpr !== 1 ? [dpr, 0, 0, dpr, 0, 0] : null
+        }).promise;
+
+        done++;
+        setLabels(done, total);
+      }
+    }
+
+    async function init() {
+      try {
+        if (!window.pdfjsLib) throw new Error('pdf.js failed to load');
+        pdfjsLib.GlobalWorkerOptions.workerSrc =
+          'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+        const loading = pdfjsLib.getDocument(url);
+        pdfDoc = await loading.promise;
+        statusEl?.remove();
+        // Fit: base scale depends on container width, keep simple default
+        baseScale = window.innerWidth < 640 ? 1.0 : 1.4;
+        await renderAll();
+      } catch (e) {
+        console.error(e);
+        pagesEl.innerHTML = '';
+        document.getElementById('fallback').hidden = false;
+        pageLabel.textContent = 'Preview unavailable';
+      }
+    }
+
+    let t;
+    function rerender() { clearTimeout(t); t = setTimeout(renderAll, 180); }
+    document.getElementById('zoomIn').onclick = () => { zoom = Math.min(2.2, zoom + 0.15); if (pdfDoc) rerender(); };
+    document.getElementById('zoomOut').onclick = () => { zoom = Math.max(0.6, zoom - 0.15); if (pdfDoc) rerender(); };
+    document.getElementById('fitBtn').onclick = () => { zoom = 1; baseScale = window.innerWidth < 640 ? 1.0 : 1.4; if (pdfDoc) rerender(); };
+
+    init();
+  </script>
 </body>
 </html>
